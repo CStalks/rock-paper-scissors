@@ -43,14 +43,22 @@ function playRound(playerSelection, computerSelection){
 }
 
 function game(){
-  for(let i = 1; i <= 5; i++){
+ /* for(let i = 1; i <= 5; i++){
     playerChoice = prompt("Enter rock | paper | scissors");
     console.log(playRound(playerChoice,getComputerChoice()));
-  }
+  }*/
 
-  (playerScore > computerScore) ? console.log("You Won")  :
+  let buttons = document.querySelectorAll('button');
+
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      console.log(playRound(button.id.toLocaleLowerCase(),getComputerChoice()));
+    })
+  });
+  
+ /* (playerScore > computerScore) ? console.log("You Won")  :
   (computerScore > playerScore) ? console.log("You Lost") :
-                                  console.log("You lost");
+                                  console.log("You lost");*/
 }
 
 game();
