@@ -43,22 +43,22 @@ function playRound(playerSelection, computerSelection){
 }
 
 function game(){
- /* for(let i = 1; i <= 5; i++){
-    playerChoice = prompt("Enter rock | paper | scissors");
-    console.log(playRound(playerChoice,getComputerChoice()));
-  }*/
-
   let buttons = document.querySelectorAll('button');
+  let points = document.querySelector('.points');
+  let message = document.querySelector('.msg');
 
   buttons.forEach(button => {
     button.addEventListener('click', () => {
-      console.log(playRound(button.id.toLocaleLowerCase(),getComputerChoice()));
-    })
+      message.textContent = (playRound(button.id.toLocaleLowerCase(),getComputerChoice()));
+      points.textContent = `${playerScore} : ${computerScore}`;
+
+
+      //set a timer that will display the result when one reaches
+      //5 points and display message to whether play a new game or not
+      if(playerScore === 5)    message.textContent = "You Won!!";
+      if(computerScore === 5) message.textContent = "You Lost!!";
+    });
   });
-  
- /* (playerScore > computerScore) ? console.log("You Won")  :
-  (computerScore > playerScore) ? console.log("You Lost") :
-                                  console.log("You lost");*/
 }
 
 game();
