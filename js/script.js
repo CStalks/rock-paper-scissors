@@ -47,17 +47,38 @@ function game(){
   let points = document.querySelector('.points');
   let message = document.querySelector('.msg');
 
+  let scoreboard = document.querySelector('.scoreboard');
+  let endMessage = document.createElement('button');
+  endMessage.style.color = 'black';
+  endMessage.textContent = 'Click to restart game';
+
   buttons.forEach(button => {
     button.addEventListener('click', () => {
+        
       message.textContent = (playRound(button.id.toLocaleLowerCase(),getComputerChoice()));
       points.textContent = `${playerScore} : ${computerScore}`;
 
+      if(computerScore === 5 || playerScore === 5){
+        buttons.forEach(button => {
+          button.setAttribute("disabled", 1);
+          playerScore = computerScore = 0;
 
-      //set a timer that will display the result when one reaches
-      //5 points and display message to whether play a new game or not
-      if(playerScore === 5)    message.textContent = "You Won!!";
-      if(computerScore === 5) message.textContent = "You Lost!!";
-    });
+          setTimeout(() => {
+          //reset score only if user wants to play again
+          message.textContent = "Game Over!!!"
+          scoreboard.appendChild(endMessage);
+
+          endMessage.addEventListener('click', () => {
+          points.textContent = `${playerScore} : ${computerScore}`;
+
+          endMessage.remove();
+          buttons.forEach(button => {
+            button.removeAttribute("disabled");     
+          });
+        });
+        }, 1000);
+      });
+    }});
   });
 }
 
